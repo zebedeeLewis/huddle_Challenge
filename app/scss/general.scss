@@ -1,0 +1,69 @@
+
+
+// Colors
+
+$primary_color: hsl(322, 100%, 66%);  // pink
+$secondary_color: hsl(265, 100%, 66%); // violet
+
+$primary_neutral_color: hsl(214, 64%, 98%); // light grayish blue
+$secondary_neutral_color: hsl(208, 11%, 55%);  // mid grayish blue
+$tertiary_neutral_color: hsl(192, 100%, 9%);  // very dark cyan
+
+// Shadows
+
+$shadow-one: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$shadow-two: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+$shadow-three: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+$shadow-four: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+$shadow-five: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
+// Typography
+
+$body_font_size: 18px;
+$heading_font_family: 'Poppins', sans-serif;
+$primary_heading_weight: 700;
+$secondary_heading_weight: 600;
+$tertiary_heading_weight: 400;
+
+$body_font_family: 'Open Sans', sans-serif;
+$primary_body_weight: 400;
+$secondary_body_weight: 700;
+
+
+// breakpoints
+
+@mixin breakpoint($point) {
+   @if $point == xs {
+      @media only screen and (min-width: 375px) {
+         @content;
+      }
+   } @else if $point == s {
+      @media only screen and (min-width: 768px) {
+         @content;
+      }
+   } @else if $point == md {
+      @media only screen and (min-width: 992px) {
+         @content;
+      }
+   } @else if $point == lg {
+      @media only screen and (min-width: 1440px) {
+         @content;
+      }
+   }
+}
+
+
+// vendor prefixing
+
+@mixin vendor_prefix($prop, $value) {
+   -webkit-#{$prop}: #{$value};
+   -moz-#{$prop}: #{$value};
+   -ms-#{$prop}: #{$value};
+   -o-#{$prop}: #{$value};
+   #{$prop}: #{$value};
+}
+
+
+body {
+  background-color: $primary_color;
+}
