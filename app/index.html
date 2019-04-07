@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
   <link rel="icon" type="image/png" sizes="32x32"
    href="./images/favicon-32x32.png">
   <link
@@ -15,17 +17,16 @@
   <link rel="stylesheet" crossorigin="anonymous"
    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
    href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-
   <title>
     Frontend Mentor | Huddle landing page with coded decorative elements
   </title>
 </head>
 <body>
-  <header class="container">
+  <header class="container--header">
     <h1>Huddle</h1>
-    <a class="header__cta">Try It Free</a>
+    <a class="btn header__cta elevate-2">Try It Free</a>
   </header>
-  <main class="container">
+  <main class="container--main">
     <div class="main-section--intro">
       <h2>Build The Community Your Fans Will Love</h2>
       <p>
@@ -33,7 +34,7 @@
       but so does your audience. Create connections with your users as
       you engage in genuine discussion. 
       </p>
-      <a href="#" class="intro-cta">Get Started For Free</a>
+      <a href="#" class="btn btn--primary intro-cta">Get Started For Free</a>
     </div>
 
     <section class="main-section--conversations">
@@ -45,7 +46,7 @@
       </p>
     </section>
 
-    <section class="main-section--grow">
+    <section class="main-section main-section--grow">
       <h3>Grow Together</h3>
       <p>
       Generate meaningful discussions with your audience and build a
@@ -54,7 +55,7 @@
       </p>
     </section>
 
-    <section class="main-section--users">
+    <section class="main-section main-section--users">
       <h3>Your Users</h3>
       <p>
       It takes no time at all to integrate Huddle with your app's
@@ -63,17 +64,17 @@
       </p>
     </section>
 
-    <div class="card">
-      <div clas="card__title">Try It Free </div>
+    <div class="card elevate-4">
+      <div class="card__title h3">Try It Free </div>
       <p class="card__content">
-      Fully featured 30-clay i'ree trial - no 0i-edit card required
+      Fully featured 30-day free trial - no credit card required
       </p>
 
-      <a class="btn card__btn final-cta">Get Started For Free</a>
+      <a class="btn btn--primary card__btn final-cta">Get Started For Free</a>
     </div>
 
   </main>
-  <footer class="footer">
+  <footer class="container--footer">
   <div class="footer__logo">
     Huddle 
   </div>
@@ -128,7 +129,7 @@
     newsletter. We'll never send you spam or pass on your email address 
     </p>
     <input type="email" class="cta-from__email"></input>
-    <input type="submit" class="footer-cta">Subscribe</input>
+    <input type="submit" class="btn footer-cta">Subscribe</input>
   </form>
 
     <p class="attribution">
