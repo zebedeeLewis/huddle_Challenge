@@ -64,38 +64,118 @@ $baseline: 24px;
    #{$prop}: #{$value};
 }
 
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?hphgbe');
+  src:  url('fonts/icomoon.eot?hphgbe#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?hphgbe') format('truetype'),
+    url('fonts/icomoon.woff?hphgbe') format('woff'),
+    url('fonts/icomoon.svg?hphgbe#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-instagram:before {
+  content: "\e901";
+}
+
+.icon-twitter:before {
+  content: "\e902";
+}
+
+.icon-facebook:before {
+  content: "\e903";
+}
+
+.icon-logo:before {
+  content: "\e900";
+  @extend .pr-1;
+}
+
+.icon-logo--header::before {
+  @extend .icon-logo:before;
+  color: $primary_color;
+}
+
 :root {
   font-size: $body_font_size;
 }
 
-body {
+.style-elements {
   font-family: $body_font_family;
   font-weight: $primary_body_weight;
   background-color: $primary_neutral_color;
   margin-top: 0px;
+  position: relative;
+  overflow-x: hidden;
+  width: 100vw;
 }
 
-.btn {
-  min-width: $baseline * 4;
-  @extend .pl-3;
-  @extend .pr-3;
-  @extend .mb-1;
+.style-elements::before,
+.style-elements::after {
+  content: " ";
+  display: block;
+  width: 100vw;
+  height: 125vh;
+  border-radius: 4.5rem;
+  position: absolute;
+  z-index: 1;
+  transform-origin: top center;
+  transform: rotateZ(332deg)
+    translateY(1vh)
+    translateX(32vw);
+}
+
+.style-elements::before {
+  background: linear-gradient(0deg, $secondary-color, $primary-color);
+}
+
+%btn-input {
   padding-top: $baseline * (2/8);
   padding-bottom: $baseline * (2/8);
-  border-radius: .2rem;
-  background-color: $primary_neutral_color;
-  color: $secondary_color;
-  text-decoration: none;
-  text-align: center;
-  display: inline-block;
+  border-radius: .1rem;
   border: none;
   font-size: $baseline * (5/8);
   line-height: 1;
 }
 
+.btn {
+  @extend %btn-input;
+  min-width: $baseline * 4;
+  @extend .pl-2;
+  @extend .pr-2;
+  @extend .mb-1;
+  background-color: $primary_neutral_color;
+  color: $secondary_color;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+}
+
 .btn--primary {
+  @extend .btn;
   background-color: $primary_color;
   color: $primary_neutral_color;
+}
+
+.btn--fluid {
+  @extend .btn;
+  width: 100%;
 }
 
 .mt-1 {margin-top: $baseline * 0.5; }
@@ -189,13 +269,13 @@ p {
   color: $secondary_neutral_color;
 }
 
-h1, h2, h3, .h3 {
+.h1, h1, h2, h3, .h3 {
   font-family: $heading_font_family;
   line-height: $baseline * 1.5;
   @extend .mb-1;
 }
 
-h1, h2 {
+.h1, h1, h2 {
   font-size: $body_font_size * 1.5;
   font-weight: $primary_heading_weight;
 }
@@ -208,6 +288,8 @@ h3, .h3 {
 .container {
   @extend .pl-3;
   @extend .pr-3;
+  position: relative;
+  z-index: 2;
 }
 
 .container--main {
@@ -284,6 +366,71 @@ h3, .h3 {
   @extend .mt-1;
 }
 
+.footer::after {
+  display: block;
+  content: " ";
+  width: 1px;
+  height: 1px;
+}
 
+.footer__logo {
+  color: white;
+  text-align: center;
+  @extend .mb-8;
+}
+
+.list__item,
+.list__item a {
+  text-decoration: none;
+  @extend .pb-2;
+}
+
+.cta-form,
+.cta-form__desc,
+.list__item,
+.list__item a,
+.footer__social,
+.attribution,
+.attribution a,
+.copyright,
+.attribution {
+  color: $primary_neutral_color;
+}
+
+.cta-form {
+  text-align: center;
+}
+
+.cta-form__desc,
+.cta-form__email {
+  @extend .mb-2;
+}
+
+.cta-form__email {
+  display: block;
+  @extend %btn-input;
+  width: 100%;
+}
+
+.footer__social {
+  text-align: center;
+  @extend .h3;
+}
+
+.copyright,
+.attribution {
+  text-align: center;
+}
+
+.copyright {
+  font-size: 12px;
+}
+
+.attribution,
+.attribution a {
+  font-size: 14px;
+  text-decoration: none;
+  @extend .mb-1;
+}
 
 
