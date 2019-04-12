@@ -116,33 +116,51 @@ $baseline: 24px;
   font-size: $body_font_size;
 }
 
-.style-elements {
+.wrapper {
+  width: 100vw;
+  overflow-x: hidden;
   font-family: $body_font_family;
   font-weight: $primary_body_weight;
   background-color: $primary_neutral_color;
-  margin-top: 0px;
   position: relative;
-  overflow-x: hidden;
-  width: 100vw;
+  margin-bottom: 0;
+}
+
+.style-elements {
+  margin-top: 0px;
+  transform-origin: top center;
+  transform: rotateZ(332deg)
+    translateY(-16vh)
+    translateX(-54vw);
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .style-elements::before,
 .style-elements::after {
   content: " ";
   display: block;
-  width: 100vw;
+  width: 107vw;
+  position: relative;
+}
+
+.style-elements::after {
+  background: linear-gradient(0deg, $secondary-color, $primary-color);
   height: 125vh;
+  margin-left: -2rem;
   border-radius: 4.5rem;
-  position: absolute;
-  z-index: 1;
-  transform-origin: top center;
-  transform: rotateZ(332deg)
-    translateY(1vh)
-    translateX(32vw);
+  z-index: 2;
 }
 
 .style-elements::before {
-  background: linear-gradient(0deg, $secondary-color, $primary-color);
+  background: white;
+  height: 75vh;
+  z-index: 1;
+  margin-top: 30%;
+  border-radius: 2.5rem;
 }
 
 %btn-input {
