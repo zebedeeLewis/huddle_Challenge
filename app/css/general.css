@@ -36,29 +36,45 @@
 :root {
   font-size: 18px; }
 
-.style-elements {
+.wrapper {
+  width: 100vw;
+  overflow-x: hidden;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   background-color: #f7f9fd;
-  margin-top: 0px;
   position: relative;
-  overflow-x: hidden;
-  width: 100vw; }
+  margin-bottom: 0; }
+
+.style-elements {
+  margin-top: 0px;
+  transform-origin: top center;
+  transform: rotateZ(332deg) translateY(-16vh) translateX(-54vw);
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start; }
 
 .style-elements::before,
 .style-elements::after {
   content: " ";
   display: block;
-  width: 100vw;
+  width: 107vw;
+  position: relative; }
+
+.style-elements::after {
+  background: linear-gradient(0deg, #9a52ff, #ff52bf);
   height: 125vh;
+  margin-left: -2rem;
   border-radius: 4.5rem;
-  position: absolute;
-  z-index: 1;
-  transform-origin: top center;
-  transform: rotateZ(332deg) translateY(1vh) translateX(32vw); }
+  z-index: 2; }
 
 .style-elements::before {
-  background: linear-gradient(0deg, #9a52ff, #ff52bf); }
+  background: white;
+  height: 75vh;
+  z-index: 1;
+  margin-top: 30%;
+  border-radius: 2.5rem; }
 
 .btn, .btn--primary, .btn--fluid, .cta-form__email {
   padding-top: 6px;
