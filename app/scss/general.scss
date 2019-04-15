@@ -1,3 +1,24 @@
+@mixin extendable($extend: true){
+  $sel: sel + random(1000);
+  @if $extend == true {
+    @at-root {
+      %#{$sel} {@content}
+    }
+    @extend %#{$sel};
+  } @else {
+    @content
+  }
+}
+
+/* Usage example
+
+@mixin PL-1($extend: true) {
+  @include extendable($extend) {
+    padding-left: 1rem;
+  }
+}
+*/
+
 
 
 // Colors
@@ -30,6 +51,8 @@ $primary_body_weight: 400;
 $secondary_body_weight: 700;
 
 $baseline: 24px;
+$centered-block-width: 688px; 
+$second-img-height: 87.25%;
 
 // breakpoints
 
@@ -38,7 +61,7 @@ $baseline: 24px;
       @media only screen and (min-width: 375px) {
          @content;
       }
-   } @else if $point == s {
+   } @else if $point == sm {
       @media only screen and (min-width: 768px) {
          @content;
       }
@@ -62,6 +85,10 @@ $baseline: 24px;
    -ms-#{$prop}: #{$value};
    -o-#{$prop}: #{$value};
    #{$prop}: #{$value};
+}
+
+div,header,body,main,footer,section,form {
+  box-sizing: border-box;
 }
 
 @font-face {
@@ -117,7 +144,7 @@ $baseline: 24px;
 }
 
 .wrapper {
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
   font-family: $body_font_family;
   font-weight: $primary_body_weight;
@@ -207,6 +234,13 @@ $baseline: 24px;
 .mb-4 {margin-bottom: $baseline * 2; }
 .mb-8 {margin-bottom: $baseline * 4; }
 
+@mixin MB-16 ($extend: true) {
+  @include extendable($extend) {
+    margin-bottom: $baseline * 8;
+  }
+}
+.mb-16 {@include MB-16;}
+
 .ml-1 {margin-left: $baseline * 0.5; }
 .ml-2 {margin-left: $baseline * 1; }
 .ml-3 {margin-left: $baseline * 1.5; }
@@ -228,15 +262,49 @@ $baseline: 24px;
 .pb-3 { padding-bottom: $baseline * 1.5; }
 .pb-4 { padding-bottom: $baseline * 2; }
 
-.pl-1 { padding-left: $baseline * 0.5; }
-.pl-2 { padding-left: $baseline * 1; }
-.pl-3 { padding-left: $baseline * 1.5; }
-.pl-4 { padding-left: $baseline * 2; }
+@mixin PL-1 ($extend: true) {
+  @include extendable($extend) {
+    padding-left: $baseline * 0.5;
+  }
+}
+.pl-1 { @include PL-1 }
+
+@mixin PL-2 ($extend: true) {
+  @include extendable($extend) {
+    padding-left: $baseline * 1;
+  }
+}
+.pl-2 { @include PL-2 }
+
+@mixin PL-3 ($extend: true){
+  @include extendable($extend) {
+    padding-left: $baseline * 1.5;
+  }
+}
+.pl-3 {@include PL-3; }
+@mixin PL-4 ($extend: true) {
+  @include extendable($extend) {
+    padding-left: $baseline * 2;
+  }
+}
+.pl-4 { @include PL-4;}
 
 .pr-1 { padding-right: $baseline * 0.5; }
-.pr-2 { padding-right: $baseline * 1; }
+
+@mixin PR-2 ($extend: true) {
+  @include extendable($extend) {
+    padding-right: $baseline * 1;
+  }
+}
+.pr-2 { @include PR-2; }
 .pr-3 { padding-right: $baseline * 1.5; }
-.pr-4 { padding-right: $baseline * 2; }
+
+@mixin PR-4 ($extend: true) {
+  @include extendable($extend) {
+    padding-right: $baseline * 2;
+  }
+}
+.pr-4 { @include PR-4; }
 
 .p-1 {
   @extend .pt-1;
@@ -330,13 +398,12 @@ h3, .h3 {
   background-color: $tertiary_neutral_color;
 }
 
-.main-section {
+.sub-section {
   text-align: center;
 }
 
-.main-section--conversations,
 .main-section--intro {
-  @extend .main-section;
+  text-align: center;
 }
 
 %main-section-before {
@@ -350,6 +417,9 @@ h3, .h3 {
 }
 
 .main-section--intro::before {
+  height: 0;
+  width: 100%;
+  overflow: hidden;
   padding-top: 71.25%;
   background-image: url('../images/illustration-mockups.svg');
   @extend %main-section-before;
@@ -357,10 +427,22 @@ h3, .h3 {
 
 .main-section--intro {
   @extend .mb-8;
+  max-width: $centered-block-width;
 }
 
-.main-section--conversations::before {
-  padding-top: 77.25%;
+@mixin CENTERED-BLOCK($extend: true) {
+  @include extendable($extend) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.centered-block {
+  @include CENTERED-BLOCK;
+}
+
+.main-section--body::before {
+  padding-top: $second-img-height;
   background-image: url('../images/illustration-your-users.svg');
   @extend %main-section-before;
   @extend .mb-8;
@@ -369,9 +451,65 @@ h3, .h3 {
 .card {
   border-radius: 0.2rem;
   background-color: white;
+  text-align: center;
+  max-width: $centered-block-width;
+}
+
+.card__content {
   @extend .p-1;
   @extend .pb-2;
-  text-align: center;
+}
+
+.aspect-ratio {
+  position: relative;
+  overflow: hidden;
+}
+
+.aspect-ratio::before {
+  content: "";
+  width: 1px;
+  margin-left: -1px;
+  display: block;
+  height: 0;
+  padding-top: 100%;
+  float: left;
+}
+
+.aspect-ratio::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.aspect-ration--card {
+  @extend .aspect-ratio;
+}
+
+.aspect-ratio--card::before {
+  @extend .aspect-ratio::before;
+  padding-top: 50%;
+}
+
+.aspect-ratio--card::after {
+  @extend .aspect-ratio::after;
+}
+
+.card--centered,
+.card--centered .card__content {
+  @extend .card;
+  display: flex;
+  text-align:center;
+  align-items: center;
+  justify-content: center;
+}
+
+.card--centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card--centered .card__content {
+  flex-wrap: wrap;
 }
 
 .card__title {
@@ -379,9 +517,10 @@ h3, .h3 {
 }
 
 .card__title,
-.card__content {
+.card__body {
   @extend .mb-1;
   @extend .mt-1;
+  width: 100%;
 }
 
 .footer::after {
@@ -451,4 +590,41 @@ h3, .h3 {
   @extend .mb-1;
 }
 
+@include breakpoint(sm) {
+  .main-section--body__right,
+  .main-section--body::before {
+    max-width: $centered-block-width;
+    @include CENTERED-BLOCK(false);
+  }
+}
+
+@include breakpoint(md) {
+  .main-section--intro,
+  .main-section--body {
+    @include MB-16(false);
+  }
+
+  .main-section--body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .main-section--body::before,
+  .main-section--body__right {
+    width: 50%;
+    box-sizing: border-box;
+    @include PR-4(false)
+    @include PL-4(false)
+  }
+
+  .main-section--body::before {
+    padding-top: #{$second-img-height * 0.5};
+  }
+
+  .sub-section {
+    text-align: left;
+    @include PL-3(false);
+  }
+}
 
