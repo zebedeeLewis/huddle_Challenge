@@ -1,6 +1,6 @@
 @mixin extendable($extend: true){
   $sel: sel + random(1000);
-  @if $extend == true {
+  @if $extend {
     @at-root {
       %#{$sel} {@content}
     }
@@ -70,6 +70,10 @@ $second-img-height: 87.25%;
          @content;
       }
    } @else if $point == lg {
+      @media only screen and (min-width: 1200px) {
+         @content;
+      }
+   } @else if $point == xl {
       @media only screen and (min-width: 1440px) {
          @content;
       }
@@ -155,15 +159,12 @@ div,header,body,main,footer,section,form {
 
 .style-elements {
   margin-top: 0px;
-  transform-origin: top center;
-  transform: rotateZ(332deg)
-    translateY(-16vh)
-    translateX(-54vw);
   position: absolute;
   z-index: 1;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  width: 100vw;
 }
 
 .style-elements::before,
@@ -171,15 +172,38 @@ div,header,body,main,footer,section,form {
   content: " ";
   display: block;
   width: 107vw;
-  position: relative;
+  position: absolute;
 }
 
 .style-elements::after {
   background: linear-gradient(0deg, $secondary-color, $primary-color);
-  height: 125vh;
-  margin-left: -2rem;
+  height: 200vw;
+  margin-left: 0;
   border-radius: 4.5rem;
+  transform-origin: top left;
+  transform: rotateZ(-31deg);
+  right: -35vw;
+  top: 33px;
   z-index: 2;
+}
+
+@media (min-width: 520px ) {
+  .style-elements::after {
+    transform: rotateZ(-35deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .style-elements::after {
+    transform: rotateZ(-38deg);
+    height: 110vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .style-elements::after {
+    transform: rotateZ(-40deg);
+  }
 }
 
 .style-elements::before {
@@ -229,10 +253,29 @@ div,header,body,main,footer,section,form {
 .mt-4 {margin-top: $baseline * 2; }
 
 .mb-1 {margin-bottom: $baseline * 0.5; }
-.mb-2 {margin-bottom: $baseline * 1; }
+
+@mixin MB-2 ($extend: true) {
+  @include extendable($extend) {
+    margin-bottom: $baseline * 1;
+  }
+}
+.mb-2 { @include MB-2; }
 .mb-3 {margin-bottom: $baseline * 1.5; }
-.mb-4 {margin-bottom: $baseline * 2; }
-.mb-8 {margin-bottom: $baseline * 4; }
+
+@mixin MB-4 ($extend: true) {
+  @include extendable($extend) {
+    margin-bottom: $baseline * 2;
+  }
+}
+
+.mb-4 { @include MB-4; }
+
+@mixin MB-8 ($extend: true) {
+  @include extendable($extend) {
+    margin-bottom: $baseline * 4;
+  }
+}
+.mb-8 { @include MB-8; }
 
 @mixin MB-16 ($extend: true) {
   @include extendable($extend) {
@@ -240,6 +283,12 @@ div,header,body,main,footer,section,form {
   }
 }
 .mb-16 {@include MB-16;}
+
+@mixin MB-32 ($extend: true) {
+  @include extendable($extend) {
+    margin-bottom: $baseline * 16;
+  }
+}
 
 .ml-1 {margin-left: $baseline * 0.5; }
 .ml-2 {margin-left: $baseline * 1; }
@@ -267,27 +316,38 @@ div,header,body,main,footer,section,form {
     padding-left: $baseline * 0.5;
   }
 }
-.pl-1 { @include PL-1 }
+
+.pl-1 { @include PL-1; }
 
 @mixin PL-2 ($extend: true) {
   @include extendable($extend) {
     padding-left: $baseline * 1;
   }
 }
-.pl-2 { @include PL-2 }
+
+.pl-2 { @include PL-2; }
 
 @mixin PL-3 ($extend: true){
   @include extendable($extend) {
     padding-left: $baseline * 1.5;
   }
 }
+
 .pl-3 {@include PL-3; }
 @mixin PL-4 ($extend: true) {
   @include extendable($extend) {
     padding-left: $baseline * 2;
   }
 }
+
 .pl-4 { @include PL-4;}
+
+@mixin PL-8 ($extend: true) {
+  @include extendable($extend) {
+    padding-left: $baseline * 4;
+  }
+}
+.pl-8 { @include PL-8; }
 
 .pr-1 { padding-right: $baseline * 0.5; }
 
@@ -296,6 +356,7 @@ div,header,body,main,footer,section,form {
     padding-right: $baseline * 1;
   }
 }
+
 .pr-2 { @include PR-2; }
 .pr-3 { padding-right: $baseline * 1.5; }
 
@@ -304,7 +365,16 @@ div,header,body,main,footer,section,form {
     padding-right: $baseline * 2;
   }
 }
+
 .pr-4 { @include PR-4; }
+
+@mixin PR-8 ($extend: true) {
+  @include extendable($extend) {
+    padding-right: $baseline * 4;
+  }
+}
+
+.pr-8 { @include PR-8; }
 
 .p-1 {
   @extend .pt-1;
@@ -574,6 +644,10 @@ h3, .h3 {
   @extend .h3;
 }
 
+.footer__lists {
+  @include MB-8;
+}
+
 .copyright,
 .attribution {
   text-align: center;
@@ -596,10 +670,71 @@ h3, .h3 {
     max-width: $centered-block-width;
     @include CENTERED-BLOCK(false);
   }
+
+  .container--footer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .container--footer > * {
+    order: 4;
+  }
+
+  .footer__logo,
+  .copyright,
+  .footer__social {
+    text-align: left;
+  }
+
+  .footer__logo {
+    width: 100%;
+    order: 1;
+    @include MB-2;
+  }
+
+  .footer__lists {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    @include MB-4;
+  }
+
+  .cta-form {
+    width: 50%;
+    text-align: left;
+  }
+
+  .footer-cta {
+    width: auto;
+    margin-left: auto;
+    display: block;
+  }
+
+  .footer__social {
+    width: 50%;
+    order: 1;
+  }
+
+  .attribution {
+    width: 100%;
+  }
 }
 
 @include breakpoint(md) {
-  .main-section--intro,
+  .container {
+    @include PL-8(false);
+    @include PR-8(false);
+  }
+
+  .container--main {
+    @include MB-16(false);
+  }
+
+  .main-section--intro {
+    @include MB-32(false);
+  }
+
   .main-section--body {
     @include MB-16(false);
   }
@@ -614,8 +749,10 @@ h3, .h3 {
   .main-section--body__right {
     width: 50%;
     box-sizing: border-box;
-    @include PR-4(false)
-    @include PL-4(false)
+  }
+
+  .main-section--body__right {
+    @include PL-4(false);
   }
 
   .main-section--body::before {
@@ -626,5 +763,27 @@ h3, .h3 {
     text-align: left;
     @include PL-3(false);
   }
+
+  .footer {
+    justify-content: space-between;
+  }
+
+  .footer__social,
+  .footer__lists,
+  .cta-form {
+    width: 33.333%;
+  }
+
+  .footer__lists {
+    @include PR-4(false);
+  }
+
 }
+
+@include breakpoint(lg) {
+  .footer__lists {
+    @include PR-8(false);
+  }
+}
+
 
